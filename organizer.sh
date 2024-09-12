@@ -22,6 +22,24 @@ create_subject() {
     mkdir -p "$HOME/personal_organizer/$subject"
     echo "Folder for $subject created."
 }
+remove_subject(){
+    list_subjects
+    echo "Please select the subject/project you want to delete:"
+    read subject
+    if [ -d "$HOME/personal_organizer/$subject" ]; then
+        echo "Are you sure you want to delete $subject and all children"
+        read confirmation
+        if ["$confirmation" == "y" ]; then
+            rm -r "$HOME/personal_organizer/$subject"
+            echo "Subject deleted"
+            else
+            echo "Cancelled"
+            fi
+            else
+            echo "Subject not found."
+            fi
+}
+
 # Function to add a note to the subject
 add_note() {
     select_subject
@@ -72,7 +90,8 @@ while true; do
     echo "3. View notes"
     echo "4. Search notes"
     echo "5. Archive notes"
-    echo "6. Exit"
+    echo "6. Remove a subject"
+    echo ". Exit"
     echo "------------------------"
     echo "Choose an option:"
     read option
